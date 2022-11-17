@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -40,6 +41,10 @@ public class BookstoreApplication {
         return tomcat;
     }
 
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
     public static void main(String[] args) {SpringApplication.run(BookstoreApplication.class, args);
 //        SpringApplication.run(BookBinding.class, args);
     }

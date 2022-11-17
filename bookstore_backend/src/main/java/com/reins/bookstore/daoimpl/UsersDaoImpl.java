@@ -5,6 +5,7 @@ import com.reins.bookstore.entity.*;
 import com.reins.bookstore.responsitory.UsersResponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -14,6 +15,9 @@ public class UsersDaoImpl implements UsersDao{
 
     @Autowired
     UsersResponsitory usersResponsity;
+
+    @Autowired
+    private RestTemplate restTemplate ;
 
     @Override
     public Map checkUser(String username, String password){
@@ -91,7 +95,10 @@ public class UsersDaoImpl implements UsersDao{
                 book.put("img",item.getAbook().getImage());
                 book.put("price",item.getAbook().getPrice());
                 book.put("count",item.getCount());
-                total=total.add(item.getAbook().getPrice().multiply(BigDecimal.valueOf(item.getCount())));
+                String para = item.getAbook().getPrice().toString()+','+item.getCount();
+                List<Double> tp = restTemplate.postForObject("http://localhost:8082/price",para,List.class);
+//                System.out.println(para+" price:"+tp.get(0));
+                total=total.add(BigDecimal.valueOf(tp.get(0)));
                 bookList.add(book);
             }
             map.put("total",total);
