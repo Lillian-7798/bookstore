@@ -10,5 +10,5 @@
 数据库：mysql、redis
 其他：kafka（消息中间件）、ssl（安全管理）、solr（Full-text searching）
 
-##其他
+## 其他
 由于本学期还在进行细化完善，本文档待更新
